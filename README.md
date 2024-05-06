@@ -1,2 +1,3 @@
-# alu-machine_learning
-#Mathematics For Machine Learning
+# ALU-Machine_Learning
+##Mathematics For Machine Learning
+Linear Algebra
