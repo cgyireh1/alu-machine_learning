@@ -29,7 +29,7 @@ y2 = np.exp((r2 / t2) * x2)
 plt.xlabel('Time (years)')
 plt.ylabel('Fraction Remaining')
 plt.title("Exponential Decay of C-14")
-plt.semilogy(x2, y2, 'b-')
+plt.semilogy(x2, y2)
 plt.show()
 
 
@@ -40,8 +40,8 @@ t32 = 1600
 y31 = np.exp((r3 / t31) * x3)
 y32 = np.exp((r3 / t32) * x3)
 
-plt.plot(x3, y31, linewidth=2, c='red', label='Line1', linestyle='dashed')
-plt.plot(x3, y32, linewidth=2, label='Line2',c='green')
+plt.plot(x3, y31, linewidth=2, c='red', label='C-14', linestyle='dashed')
+plt.plot(x3, y32, linewidth=2, label='Ra-226',c='green')
 
 plt.xlabel('Time (years)')
 plt.ylabel('Fraction Remaining')

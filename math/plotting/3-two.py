@@ -9,8 +9,8 @@ t2 = 1600
 y1 = np.exp((r / t1) * x)
 y2 = np.exp((r / t2) * x)
 
-plt.plot(x, y1, linewidth=2, c='red', label='Line1', linestyle='dashed')
-plt.plot(x, y2, linewidth=2, label='Line2',c='green')
+plt.plot(x, y1, linewidth=2, c='red', label='C-14', linestyle='dashed')
+plt.plot(x, y2, linewidth=2, label='Ra-226',c='green')
 
 plt.xlabel('Time (years)')
 plt.ylabel('Fraction Remaining')
