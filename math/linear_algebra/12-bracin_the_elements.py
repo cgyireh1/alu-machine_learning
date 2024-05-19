@@ -4,9 +4,7 @@
 
 def np_elementwise(mat1, mat2):
     """
-    that performs element-wise addition, subtraction, multiplication, and division
-
-    returns: tuple solutions
+    returns a tuple of the element-wise sum, difference, product, and quotient
     """
     result = []
     result.append(mat1 + mat2)
