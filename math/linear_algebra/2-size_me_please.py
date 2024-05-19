@@ -3,7 +3,7 @@
 
 
 def matrix_shape(matrix):
-    """ returning list of integers representing dimensions of the given matrix """
+    """ returning list of integers representing dimensions of a matrix """
     matrix_shape = []
     while (type(matrix) is list):
         matrix_shape.append(len(matrix))
