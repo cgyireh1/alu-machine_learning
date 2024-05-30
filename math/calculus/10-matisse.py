@@ -4,10 +4,10 @@
 
 def poly_derivative(poly):
     """
-    Return: 
-      a new list of coefficients representing the derivative of the polynomial.
-      [0], if the derivate is 0
-      None, if poly is not valid
+    Return:
+    a new list of coefficients representing the derivative of the polynomial.
+    [0], if the derivate is 0
+    None, if poly is not valid
     """
     if type(poly) is not list or len(poly) < 1:
         return None
@@ -23,4 +23,4 @@ def poly_derivative(poly):
         derivative.append(power * coefficient)
     while derivative[-1] is 0 and len(derivative) > 1:
         derivative = derivative[:-1]
-    return derivative
+    return derivative 
