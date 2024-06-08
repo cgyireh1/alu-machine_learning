@@ -13,14 +13,14 @@ class Poisson:
         """
         class constructor:
         def __init__(self, data=None, lambtha=1.):
-            - data is a list of the data to be used to estimate the distribution
-            - lambtha is the expected number of occurrences in a given time frame
-            - Sets the instance attribute lambtha
-            - Saves lambtha as a float
-            - If data is not given, (i.e. None) data is an empty list
-            - If data is given, calculates the lambtha of data
-            - Raises a TypeError if data is not a list
-            - Raises a ValueError If data does not contain at least two data points.
+        - data is a list of the data to be used to estimate the distribution
+        - lambtha is the expected number of occurrences in a given time frame
+        - Sets the instance attribute lambtha
+        - Saves lambtha as a float
+        - If data is not given, (i.e. None) data is an empty list
+        - If data is given, calculates the lambtha of data
+        - Raises a TypeError if data is not a list
+        - Raises a ValueError If data does not contain at least two data points.
         """
         if data is None:
             if lambtha < 1:
