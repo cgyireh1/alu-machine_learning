@@ -41,7 +41,7 @@ class Exponential:
 
     def pdf(self, x):
         """
-        calculates the value of the PDF for a given time period
+        calculates value of the PDF for a given time period
           x is the time period
           Return the PDF value for x
           If x is out of range, return 0
