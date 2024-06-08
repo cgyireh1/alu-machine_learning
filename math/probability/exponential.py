@@ -11,7 +11,6 @@ class Exponential:
 
     def __init__(self, data=None, lambtha=1.):
         """
-        class that represents exponential distribution
         class constructor:
         def __init__(self, data=None, lambtha=1.)
           - data is a list of the data to be used to estimate the distribution
