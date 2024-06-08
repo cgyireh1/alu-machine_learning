@@ -20,7 +20,7 @@ class Poisson:
         - If data is not given, (i.e. None) data is an empty list
         - If data is given, calculates the lambtha of data
         - Raises a TypeError if data is not a list
-        - Raises a ValueError If data does not contain at least two data points.
+        - Raises ValueError If data does not contain at least two data points
         """
         if data is None:
             if lambtha < 1:
