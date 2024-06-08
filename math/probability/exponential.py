@@ -17,13 +17,13 @@ class Exponential:
           - lambtha is the expected number of occurrences in a given time frame
           - Sets the instance attribute lambtha
             - saves lambtha as a float
-          - if data is not given:  
-            - use the given lambtha 
+          - if data is not given:
+            - use the given lambtha
             - raise ValueError if lambtha is not positive value
           - if data is given:
             - calculate the lambtha of data
             - raise TypeError if data is not a list
-            - raise ValueError if data does not contain at least two data points  
+            - ValueError if data does not contain at least two data points
         """
         if data is None:
             if lambtha < 1:
