@@ -1,9 +1,9 @@
-#Mathematics for Machine Learning
+# Mathematics for Machine Learning
 
-#Probability
+## Probability
 
-TASKS
-0. Initialize Poisson - 
+### Tasks
+0. Initialize Poisson 
 1. Poisson PMF
 2. Poisson CDF
 3. Initialize Exponential
