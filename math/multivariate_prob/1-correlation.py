@@ -7,10 +7,10 @@ import numpy as np
 
 def correlation(C):
     """
-    C: numpy.ndarray of shape (d, d) 
+    C: numpy.ndarray of shape (d, d)
     containing a covariance matrix
-    
-    Returns: numpy.ndarray of shape (d, d) 
+
+    Returns: numpy.ndarray of shape (d, d)
     containing the correlation matrix
     """
     if type(C) is not np.ndarray:
