@@ -27,6 +27,7 @@ def likelihood(x, n, P):
     for value in P:
         if value > 1 or value < 0:
             raise ValueError("All values in P must be in the range [0, 1]")
+    #likelihood 
     factorial = np.math.factorial
     fact_coeff = factorial(n) / (factorial(n - x) * factorial(x))
     likelihood = fact_coeff * (P ** x) * ((1 - P) ** (n - x))
