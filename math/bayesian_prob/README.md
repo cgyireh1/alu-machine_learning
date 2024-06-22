@@ -5,3 +5,4 @@
 1. Intersection
 2. Marginal Probability
 3. Posterior
+4. Continuous Posterior
