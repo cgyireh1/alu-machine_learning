@@ -30,8 +30,9 @@ def posterior(x, n, p1, p2):
         raise ValueError("p2 must be a float in the range [0, 1]")
     if p2 <= p1:
         raise ValueError("p2 must be greater than p1")
-    # difference between cumulative distribution
-    # function for beta distribution from 0 to p2 and p1
-    posterior = special.btdtr(x + 1, n - x + 1, p2)
-    - special.btdtr(x + 1, n - x + 1, p1)
+    # calculate continuous posterior probability
+    distr1 = special.btdtr(x + 1, n - x + 1, p1)
+    distr2 = special.btdtr(x + 1, n - x + 1, p2)
+    # difference between p2 and p1
+    posterior = distr2 - distr1
     return posterior
