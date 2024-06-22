@@ -31,7 +31,7 @@ def posterior(x, n, p1, p2):
     if p2 <= p1:
         raise ValueError("p2 must be greater than p1")
     # difference between cumulative distribution
-    #function for beta distribution from 0 to p2 and p1
-    posterior = special.betainc(x + 1, n - x + 1, p2)
-    - special.betainc(x + 1, n - x + 1, p1)
+    # function for beta distribution from 0 to p2 and p1
+    posterior = special.btdtr(x + 1, n - x + 1, p2)
+    - special.btdtr(x + 1, n - x + 1, p1)
     return posterior
