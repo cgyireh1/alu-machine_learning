@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Same Convolution"""
+"""
+Same Convolution
+"""
 
 
 import numpy as np
@@ -21,12 +23,11 @@ def convolve_grayscale_same(images, kernel):
     w = images.shape[2]
     kh = kernel.shape[0]
     kw = kernel.shape[1]
-    pad_h = (kh - 1) / 2
-    pad_w = (kw - 1) / 2
+    ph = (kh - 1) / 2
+    pw = (kw - 1) / 2
 
-    img_padding = np.pad(images, ((0, 0), (pad_h, pad_h), (pad_w, pad_w)),
+    img_padding = np.pad(images, ((0, 0), (ph, ph), (pw, pw)),
                          mode='constant', constant_values=0)
-
     convolved_img = np.zeros((m, h, w))
 
     image = np.arange(m)
