@@ -8,11 +8,11 @@ import numpy as np
 def convolve_grayscale_same(images, kernel):
     """
     function that performs a same convolution on grayscale images
-    images is a numpy.ndarray with shape (m, h, w) 
+    images is a numpy.ndarray with shape (m, h, w)
     -m is the number of images
     -h is the height in pixels of the images
     -w is the width in pixels of the images
-    kernel is a numpy.ndarray with shape (kh, kw) 
+    kernel is a numpy.ndarray with shape (kh, kw)
     -kh is the height of the kernel
     -kw is the width of the kernel
     """
@@ -21,11 +21,11 @@ def convolve_grayscale_same(images, kernel):
     w = images.shape[2]
     kh = kernel.shape[0]
     kw = kernel.shape[1]
-    pad_h = (kh - 1) // 2
-    pad_w = (kw - 1) // 2
+    pad_h = (kh - 1) / 2
+    pad_w = (kw - 1) / 2
 
     img_padding = np.pad(images, ((0, 0), (pad_h, pad_h), (pad_w, pad_w)),
-                       mode='constant', constant_values=0)
+                         mode='constant', constant_values=0)
 
     convolved_img = np.zeros((m, h, w))
 
@@ -33,5 +33,5 @@ def convolve_grayscale_same(images, kernel):
     for x in range(h):
         for y in range(w):
             convolved_img[image, x, y] = (np.sum(img_padding[image,
-                                            x:kh+x, y:kw+y] * kernel))
+                                                 x:kh+x, y:kw+y] * kernel))
     return convolved_img
