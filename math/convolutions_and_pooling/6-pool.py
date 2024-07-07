@@ -35,10 +35,10 @@ def pool(images, kernel_shape, stride, mode='max'):
         for w in range(0, (w - kw + 1), sw):
             if mode == 'max':
                 pooled[:, i, j, :] = np.max(images[:, h:h + kh, w:w + kw, :],
-                                axis=(1, 2))
+                                            axis=(1, 2))
             elif mode == 'avg':
                 pooled[:, i, j, :] = np.average(images[:, h:h + kh, w:w + kw, :],
-                                    axis=(1, 2))
+                                                axis=(1, 2))
             else:
                 pass
             j += 1

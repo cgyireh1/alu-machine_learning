@@ -8,7 +8,7 @@ import numpy as np
 
 def convolve_grayscale_padding(images, kernel, padding):
     """
-    Function that performs a convolution on grayscale 
+    Function that performs a convolution on grayscale
     images with custom padding
     images is a numpy.ndarray with shape (m, h, w)
     m is the number of images
@@ -32,8 +32,8 @@ def convolve_grayscale_padding(images, kernel, padding):
     out_h = h + (2 * ph) - kh + 1
     out_w = w + (2 * pw) - kw + 1
 
-    img_padding = np.pad(images, ((0, 0), (ph, ph), (pw, pw)), 
-                       mode='constant', constant_values=0)
+    img_padding = np.pad(images, ((0, 0), (ph, ph), (pw, pw)),
+                         mode='constant', constant_values=0)
     convolved_img = np.zeros((m, out_h, out_w))
 
     image = np.arange(m)
