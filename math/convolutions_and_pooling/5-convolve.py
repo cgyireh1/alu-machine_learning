@@ -7,7 +7,7 @@ import numpy as np
 
 def convolve(images, kernels, padding='same', stride=(1, 1)):
     """
-    Function that performs a convolution on images 
+    Function that performs a convolution on images
     using multiple kernels
     images is a numpy.ndarray with shape (m, h, w, c)
     -m is the number of images
@@ -29,9 +29,13 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
     -sh is the stride for the height of the image
     -sw is the stride for the width of the image
     """
-    m, h, w, c = images.shape
-    kh, kw, nc = kernel.shape # type: ignore
-    sh, sw = stride
+    m = images.shape[0]
+    h = images.shape[1]
+    w = images.shape[2]
+    c = images.shape[3]
+    kh = kernels.shape[0]
+    kw = kernels.shape[1]
+    nc = kernels.shape[3]
     if padding is 'same':
         ph = ((((h - 1) * sh) + kh - h) // 2) + 1
         pw = ((((w - 1) * sw) + kw - w) // 2) + 1
@@ -45,7 +49,7 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
     convoluted_output = np.zeros((m, ((h + (2 * ph) - kh) // sh) + 1,
                                   ((w + (2 * pw) - kw) // sw) + 1, nc))
     for index in range(nc):
-        kernel_index = kernel[:, :, :, index]# type: ignore
+        kernel_index = kernel[:, :, :, index]
         i = 0
         for h in range(0, (h + (2 * ph) - kh + 1), sh):
             j = 0

@@ -27,9 +27,14 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     -sh is the stride for the height of the image
     -sw is the stride for the width of the image
     """
-    m, h, w, c = images.shape
-    kh, kw = kernel.shape
-    sh, sw = stride
+    m = images.shape[0]
+    h = images.shape[1]
+    w = images.shape[2]
+    c = images.shape[3]
+    kh = kernel.shape[0]
+    kw = kernel.shape[1]
+    sh = stride[0]
+    sw = stride[1]
     if padding == 'same':
         ph = ((((h - 1) * sh) + kh - h) // 2) + 1
         pw = ((((w - 1) * sw) + kw - w) // 2) + 1
@@ -46,8 +51,8 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     for h in range(0, (h + (2 * ph) - kh + 1), sh):
         j = 0
         for w in range(0, (w + (2 * pw) - kw + 1), sw):
-            convoluted[:, i, j] = np.sum(images[:, h: h + kh, w: w + kw, :] * kernel,
-                                         axis=1).sum(axis=1).sum(axis=1)
+            convoluted[:, i, j] = np.sum(images[:, h: h + kh, w: w + kw, :]*
+                                         kernel,axis=1).sum(axis=1).sum(axis=1)
             j += 1
         i += 1
     return convoluted
