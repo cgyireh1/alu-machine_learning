@@ -28,7 +28,7 @@ class _PredictionPageState extends State<PredictionPage> {
           double.parse(_localPurchasingPowerIndexController.text);
 
       final response = await http.post(
-        Uri.parse('http://your_api_endpoint/predict'),
+        Uri.parse('http://localhost:5000/predict'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'cost_of_living_index': costOfLiving,
