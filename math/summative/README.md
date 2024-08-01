@@ -1,4 +1,4 @@
 # Machine Learning Mathematics Summative
 
 ### Can access the API from the following endpoint:
-https://4bdb-34-81-152-178.ngrok-free.app/predict
+https://ml-summative-heroku-24-78c86336b30f.herokuapp.com/predict
