@@ -5,7 +5,7 @@ import numpy as np
 
 
 class NeuralNetwork():
-    """ 
+    """
     A class that defines a neural network
     with one hidden layer performing binary classification
     """
