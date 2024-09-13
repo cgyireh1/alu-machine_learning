@@ -37,12 +37,12 @@ class Neuron():
         Z = np.matmul(self.__W, X) + self.__b
         self.__A = 1 / (1 + np.exp(-Z))
         return self.__A
-       
+
     def cost(self, Y, A):
         """The cost of the model using logistic regression"""
         cost = -np.sum(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
         return cost / Y.shape[1]
-      
+
     def evaluate(self, X, Y):
         """Evaluates the neuron’s predictions"""
         cost = self.cost(Y, self.forward_prop(X))
