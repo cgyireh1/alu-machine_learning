@@ -1,4 +1,5 @@
-rd Propagation"""
+#!/usr/bin/env python3
+"""Neuron Forward Propagation"""
 
 import numpy as np
 
