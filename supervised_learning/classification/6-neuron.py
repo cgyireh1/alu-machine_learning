@@ -48,7 +48,7 @@ class Neuron():
         cost = self.cost(Y, self.forward_prop(X))
         prediction = np.where(self.forward_prop(X) >= 0.5, 1, 0)
         return prediction, cost
-    
+
     def gradient_descent(self, X, Y, A, alpha=0.05):
         """Calculates one pass of gradient descent on the neuron"""
         # derivatives of loss with respect to W (dW) and b (db)
@@ -57,7 +57,7 @@ class Neuron():
         self.__W = self.__W - alpha * dW
         self.__b = self.__b - alpha * db
         return self.__W, self.__b
-    
+
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """Trains the neuron"""
         if type(iterations) is not int:
@@ -68,7 +68,7 @@ class Neuron():
             raise TypeError("alpha must be a float")
         if alpha < 0:
             raise ValueError("alpha must be positive")
-        
+
         for i in range(iterations):
             self.gradient_descent(X, Y, self.forward_prop(X), alpha)
         return self.evaluate(X, Y)
