@@ -65,8 +65,8 @@ class NeuralNetwork():
                 Y, np.log(A)) + np.multiply(
                 1 - Y, np.log(1.0000001 - A)))
         return Cost
-
-def evaluate(self, X, Y):
+        
+    def evaluate(self, X, Y):
         """
         Evaluates the neural network’s predictions
         """
@@ -76,15 +76,16 @@ def evaluate(self, X, Y):
         prediction = np.where(self.__A2 >= 0.5, 1, 0)
         return prediction, cost
 
-def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
-        """
-        Calculates one pass of gradient descent on the neural network
-        """
-        #Derivative of z2 and z1 with respect to A2
-        dz1 = np.matmul(self.__W2.T, (A2 - Y)) * (A1 * (1 - A1))
-        dz2 = A2 - Y
-
-        self.__W1 -= alpha * np.matmul(dz1, X.T) / Y.shape[1]
-        self.__b1 -= alpha * np.sum(dz1, axis=1, keepdims=True) / Y.shape[1]
-        self.__W2 -= (alpha * np.matmul(A1, dz2.T) / Y.shape[1]).T
-        self.__b2 -= alpha * np.sum(dz2, axis=1, keepdims=True) / Y.shape[1]
+    
+    def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
+            """
+            Calculates one pass of gradient descent on the neural network
+            """
+            # Derivative of z2 and z1 with respect to A2
+            dz1 = np.matmul(self.__W2.T, (A2 - Y)) * (A1 * (1 - A1))
+            dz2 = A2 - Y
+    
+            self.__W1 -= alpha * np.matmul(dz1, X.T) / Y.shape[1]
+            self.__b1 -= alpha * np.sum(dz1, axis=1, keepdims=True) / Y.shape[1]
+            self.__W2 -= (alpha * np.matmul(A1, dz2.T) / Y.shape[1]).T
+            self.__b2 -= alpha * np.sum(dz2, axis=1, keepdims=True) / Y.shape[1]
