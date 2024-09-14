@@ -52,12 +52,3 @@ class DeepNeuralNetwork():
         """
         Calculates the forward propagation of the neural network
         """
-        self.__cache["A0"] = X
-        for lay in range(self.__L):
-            weights = self.__weights
-            cache = self.__cache
-            C = str(lay + 1)
-            Z = np.matmul(weights["W" + C], cache["A" + str(lay)])
-            cache["A" + C] = 1 / (1 + np.exp(-(Z + weights["b" + C)])))
-
-        return cache["A" + str(self.__L)], cache
