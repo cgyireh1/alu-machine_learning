@@ -11,9 +11,15 @@ def one_hot_encode(Y, classes):
     """
     A function that converts a numeric label vector into a one-hot matrix
     """
-    if type(Y) is not np.ndarray or len(Y.shape) != 1 or len(Y) == 1:
+    if len(Y) == 0:
         return None
-    if type(classes) is not int or classes != (Y.max() + 1):
+    elif type(classes) is not int:
         return None
-    one_hot_enc = np.eye(classes)[Y].transpose()
+    elif not isinstance(Y, np.ndarray):
+        return None
+    elif classes <= np.amax(Y):
+        return None
+
+    one_hot_enc = np.zeros((classes, len(Y)))
+    one_hot_enc[Y, np.arange(len(Y))] = 1
     return one_hot_enc
