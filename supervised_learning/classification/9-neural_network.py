@@ -44,3 +44,7 @@ class NeuralNetwork():
     @property
     def b2(self):
         return self.__b2
+
+    @property
+    def A2(self):
+        return self.__A2
