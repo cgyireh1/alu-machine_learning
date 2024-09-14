@@ -62,7 +62,7 @@ class DeepNeuralNetwork():
             if lay == self.__L - 1:
                 # softmax activation
                 self.__cache["A" + str(lay + 1)] = (np.exp(Z) / np.sum(
-                    p1, axis=0, keepdims=True))
+                    np.exp(Z), axis=0, keepdims=True))
             else:
                 cache["A" + str(lay + 1)] = 1 / (1 + np.exp(-Z))
 
