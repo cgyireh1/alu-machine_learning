@@ -125,7 +125,7 @@ class DeepNeuralNetwork():
 
         steps = 0
         c_ax = np.zeros(iterations + 1)
-  
+
         temp_cost = []
         temp_iterations = []
         for i in range(iterations + 1):
@@ -146,7 +146,7 @@ class DeepNeuralNetwork():
             plt.plot(temp_iterations, temp_cost)
             plt.show()
         return self.evaluate(X, Y)
-      
+
     def save(self, filename):
         """
         The filename is the file to which the object should be saved
@@ -164,7 +164,7 @@ class DeepNeuralNetwork():
         """ Create the static method """
         try:
             with open(filename, 'rb') as f:
-                fileOpen = pickle.load(f)
+                fileOpen = pkl.load(f)
             return fileOpen
         except FileNotFoundError:
             return None
