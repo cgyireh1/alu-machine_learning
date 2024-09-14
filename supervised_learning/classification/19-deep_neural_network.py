@@ -61,8 +61,10 @@ class DeepNeuralNetwork():
             cache["A" + str(lay + 1)] = 1 / (1 + np.exp(-Z))
 
         return cache["A" + str(self.__L)], cache
+
     def cost(self, Y, A):
         """ Calculates the cost of the model using logistic regression """
         m = Y.shape[1]
-        Cost = (-1 / m) * np.sum(Y * np.log(A) + (1-Y) * (np.log(1.0000001 - A)))
+        k = (1-Y)
+        Cost = (-1 / m) * np.sum(Y * np.log(A) + k * (np.log(1.0000001 - A)))
         return Cost
