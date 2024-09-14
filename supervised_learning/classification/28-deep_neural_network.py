@@ -63,9 +63,19 @@ class DeepNeuralNetwork():
         for lay in range(self.__L):
             weights = self.__weights
             cache = self.__cache
-            Za = np.matmul(weights["W" + str(lay + 1)], cache["A" + str(lay)])
-            Z = Za + weights["b" + str(lay + 1)]
-            cache["A" + str(lay + 1)] = 1 / (1 + np.exp(-Z))
+            activate = self.__activation
+            Z = np.matmul(weights["W" + str(lay + 1)], cache["A" + str(lay)])
+            if lay == self.__L - 1:
+                t = np.exp(Z + weights["b" + str(lay + 1)])
+                cache["A" + str(lay + 1)] = (t / np.sum(t, axis = 0, keepdrims =
+                                                    True)
+            else:
+                if activate == 'sig':
+                    cache["A" + str(lay + 1)] = 1 / (1 + np.exp(-Z + weights["b" +
+                                                                str(lay + 1)])))
+                else:
+                    cache["A" + str(lay + 1)] = np.tanh(Z + weights["b" +
+                                                        str(lay + 1)]))
 
         return cache["A" + str(self.__L)], cache
 
