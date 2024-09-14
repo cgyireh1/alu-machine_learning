@@ -10,7 +10,7 @@ class DeepNeuralNetwork():
     performing binary classification:
     """
 
-    def __init__(self, nx, layers):
+    def __init__(self, nx, layers, activation='sig'):
         if type(nx) is not int:
             raise TypeError("nx must be an integer")
         if nx < 1:
