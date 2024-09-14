@@ -153,12 +153,13 @@ class DeepNeuralNetwork():
         The filename is the file to which the object should be saved
         If filename does not have the extension .pkl, add it
         """
+        import pickle
         if '.pkl' not in filename:
             filename += '.pkl'
 
-        fileObject = open(filename, 'wb')
-        pickle.dump(self, fileObject)
-        fileObject.close()
+        with open(filename, 'wb') as f:
+        pickle.dump(self, f)
+        f.close()
 
     @staticmethod
     def load(filename):
@@ -166,7 +167,9 @@ class DeepNeuralNetwork():
         import pickle
         try:
             with open(filename, 'rb') as f:
-                fileOpen = pickle.load(f)
-            return fileOpen
+                open = pickle.load(f)
+            return open
         except FileNotFoundError:
             return None
+
+
