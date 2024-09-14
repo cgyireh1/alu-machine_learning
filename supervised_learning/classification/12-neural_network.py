@@ -64,11 +64,12 @@ class NeuralNetwork():
                 1 - Y, np.log(1.0000001 - A)))
         return Cost
 
-def evaluate(self, X, Y):
-        """
-        Evaluates the neural network’s predictions
-        """
-        self.forward_prop(X)
-        cost = self.cost(Y, self.__A2)
-        prediction = np.where(self.__A2 >= 0.5, 1, 0)
-        return prediction, cost
+
+    def evaluate(self, X, Y):
+            """
+            Evaluates the neural network’s predictions
+            """
+            self.forward_prop(X)
+            cost = self.cost(Y, self.__A2)
+            prediction = np.where(self.__A2 >= 0.5, 1, 0)
+            return prediction, cost
