@@ -18,7 +18,7 @@ class NeuralNetwork():
         if nodes < 1:
             raise ValueError("nodes must be a positive integer")
 
-        self.W1 = np.random.randn(nodes, nx)
+        self.W1 = np.random.randn(nx, nodes).reshape(nodes, nx)
         self.b1 = np.zeros((nodes, 1))
         self.A1 = 0
         self.W2 = np.random.randn(1, nodes)
@@ -52,6 +52,7 @@ class NeuralNetwork():
     def forward_prop(self, X):
         """Calculates the forward propagation of the neural network"""
         self.__A1 = 1 / (1 + np.exp(-np.matmul(self.__W1, X) + self.__b1))
-        self.__A2 = 1 / (1 + np.exp(-np.matmul(self.__W2, self.__A1) + self.__b2))
+        self.__A2 = 1 / (1 + np.exp(-np.matmul(self.__W2, self.__A1)
+                         + self.__b2))
 
         return self.__A1, self.__A2
