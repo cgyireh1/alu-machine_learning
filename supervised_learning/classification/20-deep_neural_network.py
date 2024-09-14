@@ -56,9 +56,9 @@ class DeepNeuralNetwork():
         for lay in range(self.__L):
             weights = self.__weights
             cache = self.__cache
-            Za = np.matmul(weights["W" + str(lay + 1)], cache["A" + str(lay)])
-            Z = Za + weights["b" + str(lay + 1)]
-            cache["A" + str(lay + 1)] = 1 / (1 + np.exp(-Z))
+            c = str(lay + 1)
+            Z = np.matmul(weights["W" + c], cache["A" + str(lay)])
+            cache["A" + c] = 1 / (1 + np.exp(-(Z + weights["b" + c]))
 
         return cache["A" + str(self.__L)], cache
 
