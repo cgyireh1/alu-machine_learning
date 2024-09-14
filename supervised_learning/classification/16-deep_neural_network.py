@@ -31,7 +31,7 @@ class DeepNeuralNetwork():
                 l1 = np.random.randn(layers[k], nx) * np.sqrt(2 / nx)
                 self.weights["W" + str(k + 1)] = l1
             if k > 0:
-                lay = k - 1
-                l2 = np.random.randn(layers[k], layers[lay]) * np.sqrt(2 / layers[lay])
+                lay = np.sqrt(2 / layers[k - 1])
+                l2 = np.random.randn(layers[k], layers[k - 1]) * lay
                 He_lay = l2
                 self.weights["W" + str(k + 1)] = He_lay
