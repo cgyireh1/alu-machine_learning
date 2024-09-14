@@ -51,6 +51,10 @@ class DeepNeuralNetwork():
     def weights(self):
         return self.__weights
 
+    @property
+    def activation(self):
+        return self.__activation
+
     def forward_prop(self, X):
         """
         Calculates the forward propagation of the neural network
