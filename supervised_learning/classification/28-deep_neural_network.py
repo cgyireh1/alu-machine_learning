@@ -2,6 +2,8 @@
 """ DeepNeuralNetwork """
 
 import numpy as np
+import matplotlib.pyplot as plt
+import pickle
 
 
 class DeepNeuralNetwork():
@@ -56,93 +58,89 @@ class DeepNeuralNetwork():
         return self.__activation
 
     def forward_prop(self, X):
-        """
-        Calculates the forward propagation of the neural network
-        """
+        """ Calculates the forward propagation of the neural network """
         self.__cache["A0"] = X
         for lay in range(self.__L):
             weights = self.__weights
             cache = self.__cache
             activate = self.__activation
-            Z = np.matmul(weights["W" + str(lay + 1)], cache["A" + str(lay)])
+            Za = np.matmul(weights["W" + str(lay + 1)], cache["A" + str(lay)])
+            Z = Za + weights["b" + str(lay + 1)]
             if lay == self.__L - 1:
-                t = np.exp(Z + weights["b" + str(lay + 1)])
-                cache["A" + str(lay + 1)] = (t / np.sum(t, axis = 0, keepdrims =
-                                                    True)
+                t = np.exp(Z)
+                # Softmax activation
+                cache["A" + str(lay + 1)] = (t / np.sum(
+                    t, axis=0, keepdims=True))
             else:
                 if activate == 'sig':
-                    cache["A" + str(lay + 1)] = 1 / (1 + np.exp(-Z + weights["b" +
-                                                                str(lay + 1)])))
+                    cache["A" + str(lay + 1)] = 1 / (1 + np.exp(-Z))
                 else:
-                    cache["A" + str(lay + 1)] = np.tanh(Z + weights["b" +
-                                                        str(lay + 1)]))
-
-        return cache["A" + str(self.__L)], cache
+                    cache["A" + str(lay + 1)] = np.tanh(Z)
+        return cache["A" + str(lay + 1)], cache
 
     def cost(self, Y, A):
         """ Calculates the cost of the model using logistic regression """
-        m = Y.shape[1]
-        k = (1-Y)
-        Cost = (-1 / m) * np.sum(Y * np.log(A) + k * (np.log(1.0000001 - A)))
+
+        Cost = (-1 / Y.shape[1]) * np.sum(Y * np.log(A))
         return Cost
 
     def evaluate(self, X, Y):
         """ Evaluates the neural network’s predictions """
+        self.forward_prop(X)
         cache = self.__cache
-        A, cache = self.forward_prop(X)
-        cost = self.cost(Y, A)
-        prediction = np.where(A >= 0.5, 1, 0)
+        cost = self.cost(Y, cache["A" + str(self.__L)])
+        mc = np.amax(cache["A" + str(self.__L)], axis=0)
+        prediction = np.where(cache["A" + str(self.__L)] == mc, 1, 0)
         return prediction, cost
 
     def gradient_descent(self, Y, cache, alpha=0.05):
         """
         Calculates one pass of gradient descent on the neural network
         """
-        weights = self.__weights.copy()
-        A2 = self.__cache["A" + str(self.__L - 1)]
-        A3 = self.__cache["A" + str(self.__L)]
-        W3 = weights["W" + str(self.__L)]
-        b3 = weights["b" + str(self.__L)]
-        dZ_input = {}
-        dZ_input["dz" + str(self.__L)] = A3 - Y
+        m = Y.shape[1]
+        tW = self.__weights.copy()
+        for i in reversed(range(self.__L)):
+            A = self.__cache["A" + str(i + 1)]
+            if i == self.__L - 1:
+                dZ = self.__cache["A" + str(i + 1)] - Y
+                dW = np.matmul(self.__cache["A" + str(i)], dZ.T) / m
+            else:
+                dW2 = np.matmul(tW["W" + str(i + 2)].T, dZ2)
+                if self.__activation == 'sig':
+                    gd = A * (1 - A)
+                elif self.__activation == 'tanh':
+                    gd = 1 - (A * A)
+                dZ = dW2 * gd
+                dW = np.matmul(dZ, self.__cache["A" + str(i)].T) / m
+            # derivative of the loss with respect to b
+            db3 = np.sum(dZ, axis=1, keepdims=True) / m
+            if i == self.__L - 1:
+                self.__weights["W" + str(i + 1)] = (tW["W" +
+                                                       str(i + 1)] -
+                                                    (alpha * dW).T)
+            else:
+                self.__weights["W" + str(i + 1)] = (tW["W" +
+                                                       str(i + 1)] -
+                                                    (alpha * dW))
+            self.__weights["b" + str(i + 1)] = tW["b" + str(i + 1)] - (
+                    alpha * db3)
+            dZ2 = dZ
 
-        # derivatives of the loss with respect to w and b
-        dW3 = (1 / Y.shape[1]) * np.matmul(A2, (A3 - Y).T)
-        db3 = (1 / Y.shape[1]) * np.sum((A3 - Y), axis=1, keepdims=True)
-
-        self.__weights["W" + str(self.__L)] = W3 - (alpha * dW3).T
-        self.__weights["b" + str(self.__L)] = b3 - (alpha * db3)
-
-        for lay in range(self.__L - 1, 0, -1):
-            cache = self.__cache
-            Ap = cache["A" + str(lay - 1)]
-            Wa = weights["W" + str(lay)]
-            Wn = weights["W" + str(lay + 1)]
-            ba = weights["b" + str(lay)]
-
-            dZ2 = cache["A" + str(lay)] * (1 - cache["A" + str(lay)])
-            dZ = np.matmul(Wn.T, dZ_input["dz" + str(lay + 1)]) * dZ2
-            dW = (1 / Y.shape[1]) * np.matmul(Ap, dZ.T)
-            db = (1 / Y.shape[1]) * np.sum(dZ, axis=1, keepdims=True)
-            dZ_input["dz" + str(lay)] = dZ
-            self.__weights["W" + str(lay)] = Wa - (alpha * dW).T
-            self.__weights["b" + str(lay)] = ba - (alpha * db)
-
-    def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True,
-              graph=True, step=100):
+    def train(self, X, Y, iterations=5000, alpha=0.05,
+              verbose=True, graph=True, step=100):
         """ Trains the deep neural network """
 
         if type(iterations) is not int:
             raise TypeError("iterations must be an integer")
-        if iterations <= 0:
+        if iterations < 0:
             raise ValueError("iterations must be a positive integer")
         if type(alpha) is not float:
             raise TypeError("alpha must be a float")
-        if alpha <= 0:
+        if alpha < 0:
             raise ValueError("alpha must be positive")
 
         steps = 0
-        c_ax = np.zeros(iterations + 1)
+        # c_ax = np.zeros(iterations + 1)
 
         temp_cost = []
         temp_iterations = []
