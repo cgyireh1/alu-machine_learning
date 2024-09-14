@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" DeepNeuralNetwork """
+"""DeepNeuralNetwork """
 
 import numpy as np
 
@@ -34,15 +34,3 @@ class DeepNeuralNetwork():
                 lay2 = np.random.randn(layers[k], layers[k - 1]) *np.sqrt(2 / layers[k - 1])
                 He_lay = lay2
                 self.weights["W" + str(k + 1)] = He_lay
-
-    @property
-    def L(self):
-        return self.__L
-
-    @property
-    def cache(self):
-        return self.__cache
-
-    @property
-    def weights(self):
-        return self.__weights
