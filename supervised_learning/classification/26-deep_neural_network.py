@@ -111,7 +111,8 @@ class DeepNeuralNetwork():
             self.__weights["W" + str(lay)] = Wa - (alpha * dW).T
             self.__weights["b" + str(lay)] = ba - (alpha * db)
 
-    def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True, graph=True, step=100):
+    def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True,
+              graph=True, step=100):
         """ Trains the deep neural network """
 
         if type(iterations) is not int:
@@ -165,7 +166,7 @@ class DeepNeuralNetwork():
         """ Create the static method """
         try:
             with open(filename, 'rb') as f:
-                fileOpen = pkl.load(f)
+                fileOpen = pickle.load(f)
             return fileOpen
         except FileNotFoundError:
             return None
