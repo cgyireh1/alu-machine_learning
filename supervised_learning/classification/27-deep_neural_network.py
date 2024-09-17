@@ -59,14 +59,18 @@ class DeepNeuralNetwork():
             Za = np.matmul(weights["W" + str(lay + 1)], cache["A" + str(lay)])
             Z = Za + weights["b" + str(lay + 1)]
             cache["A" + str(lay + 1)] = 1 / (1 + np.exp(-Z))
+            if lay == self.__L - 1:
+                # softmax activation
+                self.__cache["A" + str(lay + 1)] = (np.exp(Z) / np.sum(
+                    np.exp(Z), axis=0, keepdims=True))
+            else:
+                cache["A" + str(lay + 1)] = 1 / (1 + np.exp(-Z))
 
         return cache["A" + str(self.__L)], cache
 
     def cost(self, Y, A):
         """ Calculates the cost of the model using logistic regression """
-        m = Y.shape[1]
-        k = (1-Y)
-        Cost = (-1 / m) * np.sum(Y * np.log(A) + k * (np.log(1.0000001 - A)))
+        Cost = (-1 / Y.shape[1]) * np.sum(Y * np.log(A))
         return Cost
 
     def evaluate(self, X, Y):
@@ -111,7 +115,8 @@ class DeepNeuralNetwork():
             self.__weights["W" + str(lay)] = Wa - (alpha * dW).T
             self.__weights["b" + str(lay)] = ba - (alpha * db)
 
-    def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True, graph=True, step=100):
+    def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True,
+              graph=True, step=100):
         """ Trains the deep neural network """
 
         if type(iterations) is not int:
@@ -125,7 +130,7 @@ class DeepNeuralNetwork():
 
         steps = 0
         c_ax = np.zeros(iterations + 1)
-  
+
         temp_cost = []
         temp_iterations = []
         for i in range(iterations + 1):
@@ -146,3 +151,27 @@ class DeepNeuralNetwork():
             plt.plot(temp_iterations, temp_cost)
             plt.show()
         return self.evaluate(X, Y)
+
+    def save(self, filename):
+        """
+        The filename is the file to which the object should be saved
+        If filename does not have the extension .pkl, add it
+        """
+        import pickle
+        if '.pkl' not in filename:
+            filename += '.pkl'
+
+        with open(filename, 'wb') as f:
+            pickle.dump(self, f)
+            f.close()
+
+    @staticmethod
+    def load(filename):
+        """ Create the static method """
+        import pickle
+        try:
+            with open(filename, 'rb') as f:
+                Openfile = pickle.load(f)
+            return Openfile
+        except FileNotFoundError:
+            return None
