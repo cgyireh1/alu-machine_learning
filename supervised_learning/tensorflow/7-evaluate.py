@@ -25,7 +25,7 @@ def evaluate(X, Y, save_path):
         accuracy = tf.get_collection("accuracy")[0]
         loss = tf.get_collection("loss")[0]
 
-        feed_dict={x: X, y: Y}
+        feed_dict = {x: X, y: Y}
         evaluate_y_pred = session.run(y_pred, feed_dict=feed_dict)
         evaluate_accuracy = session.run(accuracy, feed_dict=feed_dict)
         evaluate_loss = session.run(loss, feed_dict=feed_dict)
