@@ -9,14 +9,17 @@ create_train_op = __import__('5-create_train_op').create_train_op
 forward_prop = __import__('2-forward_prop').forward_prop
 
 
-def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, iterations, save_path="/tmp/model.ckpt"):
+def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
+          alpha, iterations, save_path="/tmp/model.ckpt"):
     """
     X_train is a numpy.ndarray containing the training input data
     Y_train is a numpy.ndarray containing the training labels
     X_valid is a numpy.ndarray containing the validation input data
     Y_valid is a numpy.ndarray containing the validation labels
-    layer_sizes is a list containing the number of nodes in each layer of the network
-    activations is a list containing the activation functions for each layer of the network
+    layer_sizes is a list containing the number of nodes in
+    each layer of the network
+    activations is a list containing the activation functions
+    for each layer of the network
     alpha is the learning rate
     iterations is the number of iterations to train over
     save_path designates where to save the model
@@ -24,7 +27,8 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, i
     placeholders x and y
     tensors y_pred, loss, and accuracy
     operation train_op
-    After every 100 iterations, the 0th iteration, and iterations iterations, print the following:
+    After every 100 iterations, the 0th iteration, and iterations
+    iterations, print the following:
     After {i} iterations: where i is the iteration
     \tTraining Cost: {cost} where {cost} is the training cost
     \tTraining Accuracy: {accuracy} where {accuracy} is the training accuracy
@@ -39,7 +43,6 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha, i
     create_train_op = __import__('5-create_train_op').create_train_op
     forward_prop = __import__('2-forward_prop').forward_prop
     """
-
 
     x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
     # Graph collection
