@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ Evaluate """
 
-
 import tensorflow as tf
 
 
