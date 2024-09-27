@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """ Normalize"""
 
-import numpy as np # type: ignore
-
 
 def normalize(X, m, s):
   """
