@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ RMSProp """
 
-import numpy as np # type: ignore
+import numpy as np
 
 
 def update_variables_RMSProp(alpha, beta2, epsilon, var, grad, s):
@@ -14,7 +14,7 @@ def update_variables_RMSProp(alpha, beta2, epsilon, var, grad, s):
     s is the previous second moment of var
     Returns: the updated variable and the new moment, respectively
     """
-  
+
     Sdv = (beta2 * s) + ((1 - beta2) * np.square(grad))
-    new_Var = var - alpha * (grad / np.sqrt(Sdv) + epsilon)
+    new_Var = var - alpha * grad / np.sqrt(Sdv) + epsilon
     return new_Var, Sdv
