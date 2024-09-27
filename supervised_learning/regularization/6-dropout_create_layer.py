@@ -13,8 +13,8 @@ def dropout_create_layer(prev, n, activation, keep_prob):
     """
 
     dropout_layer = tf.keras.layers.Dropout(keep_prob)
-    initiator_layer = tf.keras.contrib.layers.variance_scaling_initializer(mode="FAN_AVG"
-                                                                          )
+    initiator_layer = tf.keras.contrib.layers.variance_scaling_initializer(
+        mode="FAN_AVG")
 
     dense_layer = tf.keras.layers.Dense(
       units=n, activation=activation,
