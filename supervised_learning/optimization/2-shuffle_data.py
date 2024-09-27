@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Shuffle Data"""
 
-import numpy as np # type: ignore
+import numpy as np
 
 
 def shuffle_data(X, Y):
