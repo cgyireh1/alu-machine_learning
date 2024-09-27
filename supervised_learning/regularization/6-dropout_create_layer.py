@@ -12,11 +12,11 @@ def dropout_create_layer(prev, n, activation, keep_prob):
     keep_prob is the probability that a node will be kept
     """
 
-    dropout_layer = tf.keras.layers.Dropout(keep_prob)
-    initiator_layer = tf.keras.contrib.layers.variance_scaling_initializer(
+    dropout_layer = tf.layers.Dropout(keep_prob)
+    initiator_layer = tf.contrib.layers.variance_scaling_initializer(
         mode="FAN_AVG")
 
-    dense_layer = tf.keras.layers.Dense(
+    dense_layer = tf.layers.Dense(
       units=n, activation=activation,
       kernel_initializer=initiator_layer,
       kernel_regularizer=dropout_layer)(prev)
