@@ -16,5 +16,5 @@ def update_variables_RMSProp(alpha, beta2, epsilon, var, grad, s):
     """
 
     Sdv = (beta2 * s) + ((1 - beta2) * np.square(grad))
-    new_Var = var - (alpha * grad) / np.sqrt(Sdv) + epsilon
+    new_Var = var - alpha * grad / (np.sqrt(Sdv) + epsilon)
     return new_Var, Sdv
