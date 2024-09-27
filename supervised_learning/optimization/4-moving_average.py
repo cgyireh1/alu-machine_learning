@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """ Moving Average """
 
-import numpy as np
 
-
-def moving_average(data, beta): 
+def moving_average(data, beta):
     """
     data is the list of data to calculate the moving average of
     beta is the weight used for the moving average
