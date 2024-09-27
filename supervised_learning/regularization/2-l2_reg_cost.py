@@ -10,6 +10,6 @@ def l2_reg_cost(cost):
     of the network without L2 regularization
     """
 
-    L2_cost = cost +  tf.losses.get_regularization_losses()
+    L2_cost = cost + tf.losses.get_regularization_losses()
 
     return L2_cost
