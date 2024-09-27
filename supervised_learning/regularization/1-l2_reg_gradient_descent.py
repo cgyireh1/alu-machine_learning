@@ -6,7 +6,7 @@ import numpy as np
 
 def l2_reg_gradient_descent(Y, weights, cache, alpha, lambtha, L):
     """
-    Y is a one-hot numpy.ndarray of shape (classes, m) 
+    Y is a one-hot numpy.ndarray of shape (classes, m)
     that contains the correct labels for the data
     classes is the number of classes
     m is the number of data points
