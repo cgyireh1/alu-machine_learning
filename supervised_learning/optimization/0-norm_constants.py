@@ -10,7 +10,7 @@ def normalization_constants(X):
     m is the number of data points
     nx is the number of features
     """
-  
+
     mean = np.mean(X, axis=0)
     stdev = np.std(X, axis=0)
     return mean, stdev
