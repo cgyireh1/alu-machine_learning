@@ -19,7 +19,7 @@ def batch_norm(Z, gamma, beta, epsilon):
 
     variance = Z.var(axis=0)
     mean = Z.mean(axis=0)
-    normalized_Z = Z - mean / np.sqrt(variance + epsilon)
+    normalized_Z = (Z - mean) / np.sqrt(variance + epsilon)
     Scaled_Z = gamma * normalized_Z + beta
 
     return Scaled_Z
