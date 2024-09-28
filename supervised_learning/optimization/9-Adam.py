@@ -18,9 +18,9 @@ def update_variables_Adam(alpha, beta1,
     t is the time step used for bias correction
     """
 
-    V = (beta1 * v) + ((1 - beta1) * grad)
+    V = beta1 * v + (1 - beta1) * grad
     V_corrected = V / (1 - beta1 ** t)
-    S = (beta2 * s) + ((1 - beta2) * np.square(grad))
+    S = beta2 * s + (1 - beta2) * np.square(grad)
     S_corrected = s / (1 - beta2 ** t)
 
     updated_var = var - alpha * V_corrected / (
