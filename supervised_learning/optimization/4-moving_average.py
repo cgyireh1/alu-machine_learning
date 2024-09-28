@@ -9,8 +9,8 @@ def moving_average(data, beta):
     Your moving average calculation should use bias correction
     """
 
-    Moving_avg = []
     Var = 0
+    Moving_avg = []
     for i in range(len(data)):
         Var = (beta * Var) + ((1 - beta) * data[i])
         bias_correction_avg = Var / 1 - beta ** (i + 1)
