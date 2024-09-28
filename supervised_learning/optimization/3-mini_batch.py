@@ -77,7 +77,7 @@ def train_mini_batch(X_train, Y_train, X_valid,
             print("\tValidation Accuracy: {}".format(valid_accuracy))
 
             if epoch < epochs:
-                Xs, Ys = shuffle_data(X_train, Y_train) # type: ignore
+                Xs, Ys = shuffle_data(X_train, Y_train)
 
                 for step_number in range(minibatches):
                     start = step_number * batch_size
