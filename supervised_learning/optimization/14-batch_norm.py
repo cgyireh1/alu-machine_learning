@@ -17,10 +17,10 @@ def create_batch_norm_layer(prev, n, activation):
     you should use an epsilon of 1e-8
     """
 
-    initializer = tf.contrib.layers.variance_scaling_initializer(mode=
-                                                                 "FAN_AVG")
-    x = tf.layers.Dense(units=n, activation=None, kernel_initializer=
-                        initializer)
+    initializer = tf.contrib.layers.variance_scaling_initializer(
+        mode="FAN_AVG")
+    x = tf.layers.Dense(units=n, activation=None,
+                        kernel_initializer=initializer)
     x_prev = x(prev)
     scale = tf.Variable(tf.constant(1.0, shape=[n]), name='gamma')
     mean, variance = tf.nn.moments(x_prev, axes=[0])
