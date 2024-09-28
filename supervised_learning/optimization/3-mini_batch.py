@@ -30,7 +30,7 @@ def train_mini_batch(X_train, Y_train, X_valid,
     Returns: the path where the model was saved
     Your training function should allow for a
     smaller final batch (a.k.a. use the entire training set)
-    1) import meta graph and restore session
+    1) meta graph and restore session
     2) Get the following tensors and ops from the collection restored
     x is a placeholder for the input data
     y is a placeholder for the labels
@@ -77,7 +77,7 @@ def train_mini_batch(X_train, Y_train, X_valid,
             print("\tValidation Accuracy: {}".format(valid_accuracy))
 
             if epoch < epochs:
-                Xs, Ys = shuffle_data(X_train, Y_train) # type: ignore
+                Xs, Ys = shuffle_data(X_train, Y_train)
 
                 for step_number in range(minibatches):
                     start = step_number * batch_size
