@@ -12,7 +12,7 @@ def moving_average(data, beta):
     Var = 0
     Moving_avg = []
     for i in range(len(data)):
-        Var = (beta * Var) + ((1 - beta) * data[i])
-        bias_correction_avg = Var / 1 - beta ** (i + 1)
+        Var = beta * Var + ((1 - beta) * data[i])
+        bias_correction_avg = Var / (1 - beta ** (i + 1))
         Moving_avg.append(bias_correction_avg)
     return Moving_avg
