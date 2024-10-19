@@ -12,6 +12,6 @@ def from_numpy(array):
     and capitalized. There will not be more than 26 columns.
     Returns: the newly created pd.DataFram
     """
-    c_list = list('ABCDEFGH')
-    reshape = c_list[:array.shape[1]]
+    list_ = list('ABCDEFGH')
+    reshape = list_[:array.shape[1]]
     return pd.DataFrame(array, columns=reshape)
