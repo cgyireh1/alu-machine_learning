@@ -18,4 +18,3 @@ if __name__ == '__main__':
         start = int(time.time())
         elapsed = int((limit - start) / 60)
         print('Reset in {} min'.format(int(elapsed)))
-        print('Reset in {} min'.format(int(elapsed)))

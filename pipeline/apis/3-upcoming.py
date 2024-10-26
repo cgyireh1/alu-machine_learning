@@ -22,7 +22,6 @@ if __name__ == '__main__':
   rocket_url = "https://api.spacexdata.com/v4/rockets/{}".format(rocket_id)
   rocket_name = requests.get(rocket_url).json()['name']
   lpad_id = launch['launchpad']
-  lpad_url = "https://api.spacexdata.com/v4/launchpads/{}".format(lpad_id)
   lpad_url = "https://api.spacexdata.com/v4/launchpads/{}".\
       format(lpad_id)
   lpad_req = requests.get(lpad_url).json()
