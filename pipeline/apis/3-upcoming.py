@@ -23,6 +23,8 @@ if __name__ == '__main__':
   rocket_name = requests.get(rocket_url).json()['name']
   lpad_id = launch['launchpad']
   lpad_url = "https://api.spacexdata.com/v4/launchpads/{}".format(lpad_id)
+  lpad_url = "https://api.spacexdata.com/v4/launchpads/{}".\
+      format(lpad_id)
   lpad_req = requests.get(lpad_url).json()
   lpad_name = lpad_req['name']
   lpad_loc = lpad_req['locality']
@@ -32,4 +34,3 @@ if __name__ == '__main__':
                                                   lpad_loc)
 
   print(upcoming_launch)
-
