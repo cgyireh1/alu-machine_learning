@@ -2,10 +2,9 @@
 """ Prints the location of a user from Github API"""
 import sys
 import requests
-from time import time
+import time
 
 if __name__ == '__main__':
-
     url = sys.argv[1]
     headers = {'Accept': 'application/vnd.github.v3+json'}
     response = requests.get(url, headers=headers)
