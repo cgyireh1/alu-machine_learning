@@ -7,14 +7,14 @@ import requests
 
 
 if __name__ == '__main__':
-    url = 'https://api.spacexdata.com/v4/launches'
-    results = requests.get(url).json()
+    url_l = 'https://api.spacexdata.com/v4/launches'
+    results_l = requests.get(url_l).json()
     rocketDict = {}
-    for launch in results:
+    for launch in results_l:
         rocket = launch.get('rocket')
-        url = 'https://api.spacexdata.com/v4/rockets/{}'.format(rocket)
-        results = requests.get(url).json()
-        rocket = results.get('name')
+        url_r = 'https://api.spacexdata.com/v4/rockets/{}'.format(rocket)
+        results_l = requests.get(url_r).json()
+        rocket = results_l.get('name')
         if rocketDict.get(rocket) is None:
             rocketDict[rocket] = 1
         else:
