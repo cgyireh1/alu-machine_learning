@@ -2,6 +2,7 @@
 """ Prints the location of a user from Github API"""
 import sys
 import requests
+from time import time
 
 if __name__ == '__main__':
 

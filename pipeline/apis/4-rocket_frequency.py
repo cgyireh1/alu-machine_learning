@@ -18,7 +18,7 @@ if __name__ == '__main__':
         if rocketDict.get(rocket) is None:
             rocketDict[rocket] = 1
         else:
-            object[rocket_name] = 1
+            object[rocket] = 1
 
     keys = sorted(object.items(), key=lambda x: x[0])
     keys = sorted(keys, key=lambda x: x[1], reverse=True)
