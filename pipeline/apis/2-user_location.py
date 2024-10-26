@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-""" Prints the location of a user from Github API"""
+"""
+write a script that prints the location of a specific
+user using the GitHub API
+"""
 import sys
 import requests
 import time
