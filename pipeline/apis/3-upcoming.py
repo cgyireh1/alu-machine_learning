@@ -11,7 +11,7 @@ The name (with the locality) of the launchpad
 import requests
 
 if __name__ == '__main__':
-    rl = "https://api.spacexdata.com/v4/launches/upcoming"
+    url = "https://api.spacexdata.com/v4/launches/upcoming"
     results = requests.get(url).json()
     dateCheck = float('inf')
     launchName = None
