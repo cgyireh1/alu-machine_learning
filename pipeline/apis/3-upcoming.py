@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-Script that displays the upcoming launch with these information:
-
+Script that displays upcoming launch with these information:
 Name of the launch
 The date (in local time)
 The rocket name
