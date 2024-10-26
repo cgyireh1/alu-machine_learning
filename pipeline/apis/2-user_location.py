@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
-"""
-write a script that prints the location of a specific
-user using the GitHub API
-"""
+""" Get requests location from Github API"""
+
 import sys
 import requests
 import time
 
 
 if __name__ == '__main__':
-
+    """
+    write a script that prints the location of a specific
+    user using the GitHub API
+    """
     url = sys.argv[1]
-    headers = {'Accept': 'application/vnd.github.v3+json'}
-    response = requests.get(url, headers=headers)
+    response = requests.get(url)
     if response.status_code == 200:
         print(response.json()['location'])
-    if response.status_code == 404:
+    elif response.status_code == 404:
         print('Not found')
-    if response.status_code == 403:
-        limit = int(response.headers['X-Ratelimit-Reset'])
-        start = int(time.time())
-        elapsed = int((limit - start) / 60)
-        print('Reset in {} min'.format(int(elapsed)))
+    elif response.status_code == 403:
+        limit = int(response.headers.get('X-Ratelimit-Reset'))
+        start_time = int(time.time())
+        elapsed_time = int((limit - start_time) / 60)
+        print('Reset in {} min'.format(int(elapsed_time)))
