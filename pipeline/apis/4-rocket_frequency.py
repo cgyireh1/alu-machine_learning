@@ -7,18 +7,20 @@ import requests
 
 
 if __name__ == '__main__':
-    url_l = 'https://api.spacexdata.com/v4/launches'
-    results_l = requests.get(url_l).json()
-    rocketDict = {}
-    for launch in results_l:
-        rocket = launch.get('rocket')
-        url_r = 'https://api.spacexdata.com/v4/rockets/{}'.format(rocket)
-        results_l = requests.get(url_r).json()
-        rocket = results_l.get('name')
-        if rocketDict.get(rocket) is None:
-            rocketDict[rocket] = 1
+
+    object = dict()
+    url = 'https://api.spacexdata.com/v4/launches'
+    launches = requests.get(url).json()
+    for launch in launches:
+        urls = "https://api.spacexdata.com/v4/rockets/{}"
+        rocket_id = launch['rocket']
+        rocket_url = urls.format(rocket_id)
+        rocket_name = requests.get(rocket_url).json()['name']
+
+        if rocket_name in object.keys():
+            object[rocket_name] += 1
         else:
-            object[rocket] = 1
+            object[rocket_name] = 1
 
     keys = sorted(object.items(), key=lambda x: x[0])
     keys = sorted(keys, key=lambda x: x[1], reverse=True)
