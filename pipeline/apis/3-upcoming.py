@@ -5,7 +5,7 @@ Script that displays upcoming launch with these information:
 Name of the launch
 The date (in local time)
 The rocket name
-The name (with the locality) of the launchpad 
+The name (with the locality) of the launchpad
 """
 
 import requests
@@ -27,9 +27,8 @@ if __name__ == '__main__':
     lpad_req = requests.get(lpad_url).json()
     lpad_name = lpad_req['name']
     lpad_loc = lpad_req['locality']
-  
+
     upcoming_launch = "{} ({}) {} - {} ({})".format(launch_name, date_l,
                                                     rocket_name, lpad_name,
                                                     lpad_loc)
-  
     print(upcoming_launch)
