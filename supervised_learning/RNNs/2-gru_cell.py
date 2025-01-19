@@ -21,7 +21,7 @@ class GRUCell:
         creates public instance attributes:
           Wz and bz: update gate weights and biases
           Wr and br: reset gate weights and biases
-          Wh and bh: intermediate hidden state and input data weights and biases
+          Wh and bh: intermediate hidden state and input data weights and bias
           Wy and by are for the output weights and biases
 
         - weights should be initialized using random normal distribution
