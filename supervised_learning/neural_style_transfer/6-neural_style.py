@@ -274,5 +274,4 @@ class NST:
         if not isinstance(content_output, (tf.Tensor, tf.Variable)) or \
            content_output.shape != shape:
             raise TypeError(
-                "content_output must be a tensor of shape {}".format(shape))
-        
+                "content_output must be a tensor of shape {}".format(shape))        

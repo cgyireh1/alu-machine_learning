@@ -156,5 +156,4 @@ class NST:
         outputs = style_outputs + [content_output]
 
         model = tf.keras.models.Model(vgg.input, outputs)
-        self.model = model
-        
+        self.model = model       
