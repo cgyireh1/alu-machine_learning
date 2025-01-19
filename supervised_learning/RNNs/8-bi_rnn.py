@@ -22,12 +22,13 @@ def bi_rnn(bi_cell, X, h_0, h_t):
     H_f[0] = h_0
     H_b[t] = h_t
 
-    for i in time_step:
-        H_f[i+1] = bi_cell.forward(H_f[i], X[i])
-        H_b[t-i] = bi_cell.backward(H_b[t-i+1], X[t-i])
+    for ti in time_step:
+        H_f[ti+1] = bi_cell.forward(H_f[ti], X[ti])
 
-    H = np.concatenate((H_f, H_b), axis=0)
+    for ri in range(t-1, -1, -1):
+        H_b[ri] = bi_cell.backward(H_b[ri+1], X[ri])
+    H = np.concatenate((H_f[1:], H_b[:t]), axis=-1)
 
     Y = bi_cell.output(H)
 
-    return H, Y
+    return H,Y
