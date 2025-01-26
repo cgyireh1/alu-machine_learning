@@ -4,7 +4,7 @@
 import numpy as np
 
 
-def ngram(sentence, n):
+def cumulative_bleu(references, sentence, n):
     """
     Calculates the cumulative n-gram BLEU score for a sentence:
     Parameters:
@@ -16,72 +16,102 @@ def ngram(sentence, n):
     Returns:
     The cumulative n-gram BLEU score
     """
-    lst_gram = []
-    for i in range(len(sentence)):
-        first = i + n
-        last = i
-        if first >= len(sentence) + 1:
-            break
-        aux = sentence[last: first]
-        result = ' '.join(aux)
-        lst_gram.append(result)
-    return lst_gram
+     if n == 1:
+        return references, sentence
+
+    ngram_sentence = []
+    sentence_length = len(sentence)
+
+    for i, word in enumerate(sentence):
+        count = 0
+        w = word
+        for j in range(1, n):
+            if sentence_length > i + j:
+                w += " " + sentence[i + j]
+                count += 1
+        if count == j:
+            ngram_sentence.append(w)
+
+    ngram_references = []
+
+    for ref in references:
+        ngram_ref = []
+        ref_length = len(ref)
+
+        for i, word in enumerate(ref):
+            count = 0
+            w = word
+            for j in range(1, n):
+                if ref_length > i + j:
+                    w += " " + ref[i + j]
+                    count += 1
+            if count == j:
+                ngram_ref.append(w)
+        ngram_references.append(ngram_ref)
+
+    return ngram_references, ngram_sentence
 
 
-def ngram_bleu(references, sentence, n):
+def precision(references, sentence, n):
     """
-    ngram_bleu
-    Returns: the n-gram BLEU score
+    Calculates the precision for n-gram BLEU score for a sentence
+    returns:
+        the precision for n-gram BLEU score
     """
-    count_dict = {}
-    c_grams = ngram(sentence, n)
-    c_grams = list(set(c_grams))
-    len_trans = len(c_grams)
+    ngram_references, ngram_sentence = transform_grams(references, sentence, n)
+    ngram_sentence_length = len(ngram_sentence)
+    sentence_length = len(sentence)
 
-    # getting grams references
-    ref_grams = []
-    for reference in references:
-        list_grams = ngram(reference, n)
-        ref_grams.append(list_grams)
+    sentence_dictionary = {word: ngram_sentence.count(word) for
+                           word in ngram_sentence}
+    references_dictionary = {}
 
-    for grams in ref_grams:
-        for word in grams:
-            if word in c_grams:
-                if word not in count_dict.keys():
-                    count_dict[word] = grams.count(word)
-                else:
-                    curr = grams.count(word)
-                    prev = count_dict[word]
-                    count_dict[word] = max(curr, prev)
+    for ref in ngram_references:
+        for gram in ref:
+            if references_dictionary.get(gram) is None or \
+               references_dictionary[gram] < ref.count(gram):
+                references_dictionary[gram] = ref.count(gram)
 
-    precision = sum(count_dict.values()) / len_trans
+    matchings = {word: 0 for word in ngram_sentence}
+
+    for ref in ngram_references:
+        for gram in matchings.keys():
+            if gram in ref:
+                matchings[gram] = sentence_dictionary[gram]
+
+    for gram in matchings.keys():
+        if references_dictionary.get(gram) is not None:
+            matchings[gram] = min(references_dictionary[gram], matchings[gram])
+
+    precision = sum(matchings.values()) / ngram_sentence_length
+
     return precision
 
 
 def cumulative_bleu(references, sentence, n):
     """
-    Cumulative bleu
-    Returns: Cumulative bleu
+    Calculates the cumulative n-gram BLEU score for a sentence
+    returns:
+        the cumulative n-gram BLEU score
     """
-    precision_values = []
-    for i in range(1, n+1):
-        result = ngram_bleu(references, sentence, i)
-        precision_values.append(result)
+    sentence_length = len(sentence)
+    precisions = [0] * n
 
-    best_match_lst = []
-    for reference in references:
-        ref_len = len(reference)
-        diff = abs(ref_len - len(sentence))
-        best_match_lst.append((diff, ref_len))
+    for i in range(n):
+        precisions[i] = precision(references, sentence, i + 1)
 
-    arranged_list = sorted(best_match_lst, key=lambda x: x[0])
-    best_match = arranged_list[0][1]
+    mean = np.exp(np.sum((1 / n) * np.log(precisions)))
 
-    # Brevity penalty
-    if len(sentence) > best_match:
-        bp = 1
+    index = np.argmin([abs(len(word) - sentence_length) for
+                       word in references])
+
+    references_length = len(references[index])
+
+    if sentence_length > references_length:
+        BLEU = 1
     else:
-        bp = np.exp(1 - (float(best_match) / len(sentence)))
+        BLEU = np.exp(1 - float(references_length) / sentence_length)
 
-    Bleu_score = bp * np.exp(np.sum(np.log(precision_values)) / n)
-    return Bleu_score
+    BLEU_score = BLEU * mean
+
+    return BLEU_score
