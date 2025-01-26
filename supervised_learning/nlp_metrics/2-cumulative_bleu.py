@@ -63,7 +63,8 @@ def cumulative_bleu(references, sentence, n):
         precision_values.append(precision)
 
     # Calculate brevity penalty
-    best_match = min([len(ref) for ref in references], key=lambda x: abs(x - len(sentence)))
+    best_match = min([len(ref) for ref in references],
+                     key=lambda x: abs(x - len(sentence)))
 
     if len(sentence) > best_match:
         bp = 1
@@ -73,6 +74,8 @@ def cumulative_bleu(references, sentence, n):
     # Calculate the BLEU score
     Bleu_score = bp * np.exp(np.sum(np.log(precision_values)) / n)
     return Bleu_score
+
+
 def cumulative_bleu(references, sentence, n):
     """
     Calculates the cumulative BLEU score for a sentence.
@@ -83,7 +86,8 @@ def cumulative_bleu(references, sentence, n):
         precision_values.append(precision)
 
     # Calculate brevity penalty
-    best_match = min([len(ref) for ref in references], key=lambda x: abs(x - len(sentence)))
+    best_match = min([len(ref) for ref in references],
+                     key=lambda x: abs(x - len(sentence)))
 
     if len(sentence) > best_match:
         bp = 1
