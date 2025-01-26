@@ -16,16 +16,11 @@ def ngram(sentence, n):
     Returns:
     The cumulative n-gram BLEU score
     """
-    lst_gram = []
-    for i in range(len(sentence)):
-        first = i + n
-        last = i
-        if first >= len(sentence) + 1:
-            break
-        aux = sentence[last: first]
-        result = ' '.join(aux)
-        lst_gram.append(result)
-    return lst_gram
+    ngram_list = []
+    for i in range(len(sentence) - n + 1):
+        gram = sentence[i:i+n]
+        ngram_list.append(' '.join(gram))
+    return ngram_list
 
 
 def ngram_bleu(references, sentence, n):
@@ -60,28 +55,41 @@ def ngram_bleu(references, sentence, n):
 
 def cumulative_bleu(references, sentence, n):
     """
-    Cumulative bleu
-    Returns: Cumulative bleu
+    Calculates the cumulative BLEU score for a sentence.
     """
     precision_values = []
     for i in range(1, n+1):
-        result = ngram_bleu(references, sentence, i)
-        precision_values.append(result)
+        precision = ngram_bleu(references, sentence, i)
+        precision_values.append(precision)
 
-    best_match_lst = []
-    for reference in references:
-        ref_len = len(reference)
-        diff = abs(ref_len - len(sentence))
-        best_match_lst.append((diff, ref_len))
+    # Calculate brevity penalty
+    best_match = min([len(ref) for ref in references], key=lambda x: abs(x - len(sentence)))
 
-    arranged_list = sorted(best_match_lst, key=lambda x: x[0])
-    best_match = arranged_list[0][1]
-
-    # Brevity penalty
     if len(sentence) > best_match:
         bp = 1
     else:
-        bp = np.exp(1 - (float(best_match) / len(sentence)))
+        bp = np.exp(1 - (best_match / len(sentence)))
 
+    # Calculate the BLEU score
+    Bleu_score = bp * np.exp(np.sum(np.log(precision_values)) / n)
+    return Bleu_score
+def cumulative_bleu(references, sentence, n):
+    """
+    Calculates the cumulative BLEU score for a sentence.
+    """
+    precision_values = []
+    for i in range(1, n+1):
+        precision = ngram_bleu(references, sentence, i)
+        precision_values.append(precision)
+
+    # Calculate brevity penalty
+    best_match = min([len(ref) for ref in references], key=lambda x: abs(x - len(sentence)))
+
+    if len(sentence) > best_match:
+        bp = 1
+    else:
+        bp = np.exp(1 - (best_match / len(sentence)))
+
+    # Calculate the BLEU score
     Bleu_score = bp * np.exp(np.sum(np.log(precision_values)) / n)
     return Bleu_score
