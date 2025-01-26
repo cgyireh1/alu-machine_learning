@@ -16,7 +16,7 @@ def cumulative_bleu(references, sentence, n):
     Returns:
     The cumulative n-gram BLEU score
     """
-     if n == 1:
+    if n == 1:
         return references, sentence
 
     ngram_sentence = []
