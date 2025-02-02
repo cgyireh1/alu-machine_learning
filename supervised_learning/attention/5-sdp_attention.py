@@ -21,7 +21,7 @@ def sdp_attention(Q, K, V, mask=None):
     query = tf.matmul(Q, K, transpose_b=True)
     # scale q
     key_dimension = tf.cast(tf.shape(K)[-1], tf.float32)
-    scaled_query = query / tf.math.sqrt(key_dimension )
+    scaled_query = query / tf.math.sqrt(key_dimension)
 
     if mask is not None:
         scaled_query += (mask * -1e9)
