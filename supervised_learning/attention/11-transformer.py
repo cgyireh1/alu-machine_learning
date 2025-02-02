@@ -34,23 +34,21 @@ class Transformer(tf.keras.Model):
     def call(self, inputs, target, training, encoder_mask,
              look_ahead_mask, decoder_mask):
         """
-        inputs: tensor of shape (batch, input_seq_len)containing
-                the inputs
-        target: tensor of shape (batch, target_seq_len)containing
-                the target
-        training: boolean to determine if the model is training
-        encoder_mask: padding mask to be applied to the encoder
-        look_ahead_mask: look ahead mask to be applied to the decoder
-        decoder_mask: padding mask to be applied to the decoder
+        call method
+        Args:
+            inputs: tensor of shape (batch, input_seq_len)containing
+                    the inputs
+            target: tensor of shape (batch, target_seq_len)containing
+                    the target
+            training: boolean to determine if the model is training
+            encoder_mask: padding mask to be applied to the encoder
+            look_ahead_mask: look ahead mask to be applied to the decoder
+            decoder_mask: padding mask to be applied to the decoder
         Returns: tensor of shape (batch, target_seq_len, target_vocab)
-        containing the transformer output
+                 containing the transformer output
         """
-
         encoder_output = self.encoder(inputs, training, encoder_mask)
-        print("Encoder Output Shape:", encoder_output.shape)
         decoder_output = self.decoder(target, encoder_output, training,
-                                      look_ahead_mask, decoder_mask)
-        print("Decoder Output Shape:", decoder_output.shape)
-        final_output = tf.nn.softmax(self.linear(decoder_output), axis=-1)
-
+                                  look_ahead_mask, decoder_mask)
+        final_output = self.linear(decoder_output)
         return final_output
