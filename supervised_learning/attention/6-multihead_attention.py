@@ -6,11 +6,14 @@ sdp_attention = __import__('5-sdp_attention').sdp_attention
 
 
 class MultiHeadAttention(tf.keras.layers.Layer):
-    """A class that inherits from tensorflow.keras.layers.Layer to perform multi head attention"""
+    """A class that inherits from
+    tensorflow.keras.layers.Layer to
+    perform multi head attention"""
 
     def __init__(self, dm, h):
         """
-        dm is an integer representing the dimensionality of the model
+        dm is an integer representing the
+        dimensionality of the model
         h is an integer representing the number of heads
         dm is divisible by h
 
@@ -38,9 +41,9 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         """
         batch_size = tf.shape(Q)[0]
 
-        q = self.Wq(Q)  # (batch_size, seq_len, d_model)
-        k = self.Wk(K)  # (batch_size, seq_len, d_model)
-        v = self.Wv(V)  # (batch_size, seq_len, d_model)
+        q = self.Wq(Q)
+        k = self.Wk(K)
+        v = self.Wv(V)
 
         q = self.split_heads(q, batch_size)
         k = self.split_heads(k, batch_size)

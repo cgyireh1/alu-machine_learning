@@ -12,9 +12,12 @@ class RNNDecoder(tf.keras.layers.Layer):
     """
     def __init__(self, vocab, embedding, units, batch):
         """
-        - vocab is an integer representing the size of the input vocabulary
-        - embedding is an integer representing the dimensionality of the embedding vector
-        - units is an integer representing the number of hidden units in the RNN cell
+        - vocab is an integer representing the size
+        of the input vocabulary
+        - embedding is an integer representing the
+        dimensionality of the embedding vector
+        - units is an integer representing the number
+        of hidden units in the RNN cell
         - batch is an integer representing the batch size
         """
         super(RNNDecoder, self).__init__()

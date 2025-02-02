@@ -6,7 +6,8 @@ import numpy as np
 
 def positional_encoding(max_seq_len, dm):
     """
-    A function that calculates the positional encoding for a transformer
+    A function that calculates the positional
+    encoding for a transformer
       max_seq_len: Integer representing the maximum sequence
       dm: model depth
     Returns: numpy.ndarray of shape (max_seq_len, dm) containing

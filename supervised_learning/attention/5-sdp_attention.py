@@ -12,7 +12,8 @@ def sdp_attention(Q, K, V, mask=None):
       containing the key matrix
    V: tensor with its last two dimensions as (..., seq_len_v, dv)
       containing the value matrix
-   mask: tensor that can be broadcast into (..., seq_len_q, seq_len_v)
+   mask: tensor that can be broadcast into
+   (..., seq_len_q, seq_len_v)
          containing the optional mask, or defaulted to None
    output, weights
     """

@@ -7,7 +7,9 @@ Decoder = __import__('10-transformer_decoder').Decoder
 
 
 class Transformer(tf.keras.Model):
-    """A Class that inherits from tensorflow.keras.Model to create a transformer network"""
+    """A Class that inherits from
+    tensorflow.keras.Model to
+    create a transformer network"""
 
     def __init__(self, N, dm, h, hidden, input_vocab, target_vocab,
                  max_seq_input, max_seq_target, drop_rate=0.1):

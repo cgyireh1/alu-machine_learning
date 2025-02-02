@@ -48,7 +48,7 @@ class EncoderBlock(tf.keras.layers.Layer):
         Return: tensor of shape (batch, input_seq_len, dm) with
                 the block’s output
         """
-        #ffn=feed forward network
+        # ffn=feed forward network
         attention_output, _ = self.mha(x, x, x, mask)
         attention_output = self.dropout1(attention_output, training=training)
         output1 = self.layernorm1(x + attention_output)
