@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-""" Transformer encoder """
-
-import tensorflow as tf
-positional_encoding = __import__('4-positional_encoding').positional_encoding
-EncoderBlock = __import__('7-transformer_encoder_block').EncoderBlock
-
-
 class Encoder(tf.keras.layers.Layer):
     """ A class that inherits from
     tensorflow.keras.layers.Layer
@@ -44,10 +36,10 @@ class Encoder(tf.keras.layers.Layer):
         # embedding and position encoding.
         embedding = self.embedding(x)
         embedding *= tf.math.sqrt(tf.cast(self.dm, tf.float32))
-        embedding += self.positional_encoding[:seq_len]
+        embedding += self.positional_encoding[:seq_len, :]
         encoder_out = self.dropout(embedding, training=training)
 
         for i in range(self.N):
-            encoder_output = self.blocks[i](encoder_out, training, mask)
+            encoder_out = self.blocks[i](encoder_out, training, mask)
 
-        return encoder_output
+        return encoder_out
