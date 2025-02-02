@@ -29,7 +29,7 @@ class Transformer(tf.keras.Model):
                                max_seq_input, drop_rate)
         self.decoder = Decoder(N, dm, h, hidden, target_vocab,
                                max_seq_target, drop_rate)
-        self.linear = tf.keras.layers.Dense(target_vocab, kernel_initializer='he_normal')
+        self.linear = tf.keras.layers.Dense(target_vocab)
 
     def call(self, inputs, target, training, encoder_mask,
              look_ahead_mask, decoder_mask):
@@ -45,8 +45,12 @@ class Transformer(tf.keras.Model):
         Returns: tensor of shape (batch, target_seq_len, target_vocab)
         containing the transformer output
         """
+
         encoder_output = self.encoder(inputs, training, encoder_mask)
+        print("Encoder Output Shape:", encoder_output.shape)
         decoder_output = self.decoder(target, encoder_output, training,
                                       look_ahead_mask, decoder_mask)
-        final_output = tf.nn.softmax(self.linear(decoder_output), axis=-1)  # Apply softmax
+        print("Decoder Output Shape:", decoder_output.shape)
+        final_output = tf.nn.softmax(self.linear(decoder_output), axis=-1)
+
         return final_output
