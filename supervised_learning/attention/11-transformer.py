@@ -43,7 +43,7 @@ class Transformer(tf.keras.Model):
         look_ahead_mask: look ahead mask to be applied to the decoder
         decoder_mask: padding mask to be applied to the decoder
         Returns: tensor of shape (batch, target_seq_len, target_vocab)
-                 containing the transformer output
+        containing the transformer output
         """
         encoder_output = self.encoder(inputs, training, encoder_mask)
         decoder_output = self.decoder(target, encoder_output, training,
