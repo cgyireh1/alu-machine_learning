@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+""" Transformer encoder """
+
+import tensorflow as tf
+positional_encoding = __import__('4-positional_encoding').positional_encoding
+EncoderBlock = __import__('7-transformer_encoder_block').EncoderBlock
+
+
 class Encoder(tf.keras.layers.Layer):
     """ A class that inherits from
     tensorflow.keras.layers.Layer
