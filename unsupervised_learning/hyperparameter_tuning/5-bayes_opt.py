@@ -91,7 +91,7 @@ class BayesianOptimization():
 
             x_opt, _ = self.acquisition()
             # Optimization should stop early If
-            # the next proposed point is one 
+            # the next proposed point is one
             # that has already been sampled
             if x_opt in X_all_s:
                 break
