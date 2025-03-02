@@ -28,10 +28,10 @@ def absorbing(P):
         return False
 
     for i in range(n1):
-            # print('this is Pi {}'.format(P[i]))
-            for j in range(n2):
-                # print('this is Pj {}'.format(P[j]))
-                if (i == j) and (i + 1 < len(P)):
-                    if P[i + 1][j] == 0 and P[i][j + 1] == 0:
-                        return False
+        # print('this is Pi {}'.format(P[i]))
+        for j in range(n2):
+            # print('this is Pj {}'.format(P[j]))
+            if (i == j) and (i + 1 < len(P)):
+                if P[i + 1][j] == 0 and P[i][j + 1] == 0:
+                    return False
     return True
