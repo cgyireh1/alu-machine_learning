@@ -31,9 +31,9 @@ def P_init(X, perplexity):
         H: the Shannon entropy for perplexity with a base of 2
     '''
     n = X.shape[0]
-    mult = np.matmul(X, -X.T)
+    mult = np.matmul(X, X.T)
     summation = np.sum(np.square(X), 1)
-    D = np.add(np.add(2 * mult, summation), summation.T)
+    D = np.add(np.add(-2 * mult, summation), summation.T)
     P = np.zeros((n, n))
     betas = np.ones((n, 1))
     H = np.log2(perplexity)
