@@ -16,11 +16,22 @@ def absorbing(P):
            n: the number of states in the markov chain
     Returns: True if it is absorbing, or False on failure
     '''
-    # check that P is the correct type and dimensions
-    if type(P) is not np.ndarray or len(P.shape) != 2:
+    if len(P.shape) != 2:
+        return None
+    n1, n2 = P.shape
+    if (n1 != n2) or type(P) is not np.ndarray:
+        return None
+    D = np.diagonal(P)
+    if (D == 1).all():
+        return True
+    if not (D == 1).any():
         return False
-    # save value of n and check that P is square
-    n, n_check = P.shape
-    if n != n_check:
-        return False
+
+    for i in range(n1):
+        # print('this is Pi {}'.format(P[i]))
+        for j in range(n2):
+            # print('this is Pj {}'.format(P[j]))
+            if (i == j) and (i + 1 < len(P)):
+                if P[i + 1][j] == 0 and P[i][j + 1] == 0:
+                    return False
     return True
