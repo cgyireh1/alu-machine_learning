@@ -30,22 +30,32 @@ def expectation_maximization(X, k,
             probabilities for each data point in each cluster
         - l: log likelihood of the model
     """
-    if not isinstance(X, np.ndarray):
+    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
         return None, None, None, None, None
-    if not isinstance(k, int):
+    if not isinstance(k, int) or k <= 0:
         return None, None, None, None, None
-    if not isinstance(iterations, int):
+    if not isinstance(iterations, int) or iterations <= 0:
         return None, None, None, None, None
-    if not isinstance(tol, float):
+    if not isinstance(tol, float) or tol < 0:
         return None, None, None, None, None
     if not isinstance(verbose, bool):
         return None, None, None, None, None
 
     pi, m, S = initialize(X, k)
     g, l = expectation(X, pi, m, S)
+    prev_like = i = 0
+    msg = "Log Likelihood after {} iterations: {}"
+
     for i in range(iterations):
-        pi, m, S = maximization(X, g)
-        g, l = expectation(X, pi, m, S)
         if verbose and i % 10 == 0:
-            print(f"Log Likelihood after {i} iterations: {l:.5f}")
-    return pi, m, S, g, l
+            print(msg.format(i, total_log_like.round(5)))
+        pi, m, S = maximization(X, g)
+        g, total_log_like = expectation(X, pi, m, S)
+        if abs(prev_like - total_log_like) <= tol:
+            break
+        prev_like = total_log_like
+
+    if verbose:
+        print(msg.format(i + 1, total_log_like.round(5)))
+
+    return pi, m, S, g, total_log_like
