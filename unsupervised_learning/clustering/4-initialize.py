@@ -23,12 +23,12 @@ def initialize(X, k):
         - S: numpy.ndarray (k, d, d) covariance matrices for each cluster,
         initialized as identity matrices
     """
-    n, d = X.shape
-    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
+    if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None, None
-    if not isinstance(k, int) or k <= 0:
+    if type(k) is not int or k <= 0:
         return None, None, None
-    pi = np.full((k,), 1 / k)
-    m, _ = kmeans(X, k)
-    S = np.full((k, d, d), np.identity(d))
+    C, clss = kmeans(X, k)
+    pi = np.full(k, 1 / k)
+    m = C
+    S = np.tile(np.identity(X.shape[1]), (k, 1, 1))
     return pi, m, S

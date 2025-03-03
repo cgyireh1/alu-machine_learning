@@ -18,8 +18,13 @@ def variance(X, C):
     return:
         - var: total intra-cluster variance
     """
-    var = np.sum((X - C[:, np.newaxis])**2, axis=-1)
-    mean = np.sqrt(var)
-    mini = np.min(mean, axis=0)
-    var = np.sum(mini ** 2)
-    return np.sum(var)
+    if not isinstance(X, np.ndarray) or not isinstance(C, np.ndarray) or \
+            len(X.shape) != 2 or len(C.shape) != 2 or \
+            X.shape[1] != C.shape[1] or C.shape[1] <= 0 or X.size == 0 or \
+            C.size == 0:
+        return None
+
+    dist_diff = np.linalg.norm(X - C[:, np.newaxis], axis=2).T
+    minimum_dist = np.min(dist_diff, axis=1)
+    var = np.sum(np.square(minimum_dist))
+    return var
