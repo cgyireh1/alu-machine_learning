@@ -17,7 +17,6 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
                 the hidden layers should be reversed for the decoder
         latent_dims [int]:
             contains the dimensions of the latent space representation
-            
         encoder, decoder, auto
             encoder [model]: the encoder model
             decoder [model]: the decoder model
