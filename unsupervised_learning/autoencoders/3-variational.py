@@ -9,8 +9,6 @@ import tensorflow.keras as keras
 
 def autoencoder(input_dims, hidden_layers, latent_dims):
     """
-    Creates a variational autoencoder
-
     parameters:
         input_dims [int]:
             contains the dimensions of the model input
