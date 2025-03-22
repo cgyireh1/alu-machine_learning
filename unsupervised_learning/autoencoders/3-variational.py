@@ -6,13 +6,22 @@ import tensorflow.keras as keras
 
 def autoencoder(input_dims, hidden_layers, latent_dims):
     """
-        input_dims: integer containing the dimensions of the model input
-        hidden_layers:  list containing the number of nodes for each hidden
-                        layer in the encoder, respectively
-        latent_dims: integer containing the dimensions of the latent space
-                     representation
+    parameters:
+        input_dims [int]:
+            contains the dimensions of the model input
+        hidden_layers [list of ints]:
+            contains the number of nodes for each hidden layer in the encoder
+                the hidden layers should be reversed for the decoder
+        latent_dims [int]:
+            contains the dimensions of the latent space representation
+        encoder, decoder, auto
+            encoder [model]: the encoder model,
+                which should output the latent representation, the mean,
+                and the log variance
+            decoder [model]: the decoder model
+            auto [model]: full autoencoder model
+                compiled with adam optimization and binary cross-entropy loss
     """
-
     X_input = keras.Input(shape=(input_dims,))
     hidden_ly = keras.layers.Dense(units=hidden_layers[0], activation='relu')
     Y_prev = hidden_ly(X_input)
